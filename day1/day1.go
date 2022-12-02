@@ -57,6 +57,3 @@ func Part2() {
     }
     fmt.Printf("sum of highest %v: %v\n", toSum, sum)
 }
-
-func main() {
-}
