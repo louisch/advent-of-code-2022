@@ -1,54 +1,44 @@
 package day1
 
 import (
-    "bufio"
     "fmt"
-    "log"
-    "os"
     "sort"
     "strconv"
+
+    "github.com/louisch/advent-of-code-2022/util"
 )
 
-func scanElves(filename string) []int {
-    f, err := os.Open(filename)
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer f.Close()
 
-    scanner := bufio.NewScanner(f)
-
+func scanElves(day int, part int) []int {
     var elves = make([]int, 0)
     currentSum := 0
-    for scanner.Scan() {
-        line := scanner.Text()
 
+    visitElves := func(line string) {
         if line == "" {
             elves = append(elves, currentSum)
             currentSum = 0
-            continue
+            return
         }
 
         calories64, err := strconv.ParseInt(line, 0, 32)
-        if err != nil {
-            log.Fatal(err)
-        }
+        util.Check(err)
         calories := int(calories64)
         currentSum += calories
     }
+    util.ScanFileByLine(day, part, visitElves)
 
     sort.Ints(elves)
     return elves
 }
 
-func Part1() {
-    elves := scanElves("data/1/1")
+func Part1(day int, part int) {
+    elves := scanElves(day, part)
     highestCalories := elves[0]
     fmt.Printf("highest calories: %v\n", highestCalories)
 }
 
-func Part2() {
-    elves := scanElves("data/1/2")
+func Part2(day int, part int) {
+    elves := scanElves(day, part)
     sum := 0
     toSum := 3
     for i, calories := range elves[len(elves) - toSum:] {
