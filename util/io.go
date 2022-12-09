@@ -6,6 +6,13 @@ import (
     "os"
 )
 
+func ReadFile(day int, part int) string {
+    filename := fmt.Sprintf("data/%v/%v", day, part)
+    data, err := os.ReadFile(filename)
+    Check(err)
+    return string(data)
+}
+
 func ScanFileByLine(day int, part int, visit func(string)) {
     filename := fmt.Sprintf("data/%v/%v", day, part)
     f, err := os.Open(filename)
