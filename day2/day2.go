@@ -60,7 +60,7 @@ func getEncoding(table map[string]int, input string) int {
     return result
 }
 
-func scanRPS(day int, part int) []roundGuide {
+func scanRPS(day int) []roundGuide {
     var spec = make([]roundGuide, 0)
 
     visitFile := func(line string) {
@@ -77,7 +77,7 @@ func scanRPS(day int, part int) []roundGuide {
             result,
         })
     }
-    util.ScanFileByLine(day, part, visitFile)
+    util.ScanFileByLine(day, visitFile)
 
     return spec
 }
@@ -137,7 +137,7 @@ func getScore(guide roundGuide) int {
 }
 
 func Part1(day int, part int) {
-    spec := scanRPS(day, part)
+    spec := scanRPS(day)
     score := 0
     for _, guide := range spec {
         score += getScore(guide)
@@ -179,7 +179,7 @@ func getGuidedPlay(guide roundGuide) RPS {
 }
 
 func Part2(day int, part int) {
-    spec := scanRPS(day, part)
+    spec := scanRPS(day)
     score := 0
     for _, guide := range spec {
         play := getGuidedPlay(guide)

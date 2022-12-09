@@ -35,7 +35,7 @@ func Part1(day int, part int) {
             rangesThatIntersectCompletely++
         }
     }
-    util.ScanFileByLine(day, part, visitFile)
+    util.ScanFileByLine(day, visitFile)
     fmt.Printf("Ranges intersecting completely: %v\n", rangesThatIntersectCompletely)
 }
 
@@ -47,6 +47,6 @@ func Part2(day int, part int) {
             rangesThatIntersectPartially++
         }
     }
-    util.ScanFileByLine(day, part, visitFile)
+    util.ScanFileByLine(day, visitFile)
     fmt.Printf("Ranges intersecting partially: %v\n", rangesThatIntersectPartially)
 }

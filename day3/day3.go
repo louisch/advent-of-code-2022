@@ -49,7 +49,7 @@ func Part1(day int, part int) {
         }
         sum += commonPriority
     }
-    util.ScanFileByLine(day, part, visitFile)
+    util.ScanFileByLine(day, visitFile)
     fmt.Printf("Sum: %v\n", sum)
 }
 
@@ -66,7 +66,7 @@ func Part2(day int, part int) {
         }
         i++
     }
-    util.ScanFileByLine(day, part, visitFile)
+    util.ScanFileByLine(day, visitFile)
 
     if i != 0 {
         log.Fatal("Elves are not multiple of three!")

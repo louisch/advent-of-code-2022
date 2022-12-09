@@ -19,7 +19,7 @@ type CrateSpec = struct {
     instructions []CrateInstruction
 }
 
-func parseSpec(day int, part int) CrateSpec {
+func parseSpec(day int) CrateSpec {
     stacks := make([]string, 0)
     instructions := make([]CrateInstruction, 0)
 
@@ -72,7 +72,7 @@ func parseSpec(day int, part int) CrateSpec {
             to: util.ParseIntSimple(submatches[3]) - 1,
         })
     }
-    util.ScanFileByLine(day, part, visitFile)
+    util.ScanFileByLine(day, visitFile)
 
     return CrateSpec {
         stacks,
@@ -89,7 +89,7 @@ func printMessage(stacks []string) {
 }
 
 func Part1(day int, part int) {
-    spec := parseSpec(day, part)
+    spec := parseSpec(day)
     stacks := spec.stacks
     for _, instruction := range spec.instructions {
         amount := instruction.amount
@@ -106,7 +106,7 @@ func Part1(day int, part int) {
 }
 
 func Part2(day int, part int) {
-    spec := parseSpec(day, part)
+    spec := parseSpec(day)
     stacks := spec.stacks
     for _, instruction := range spec.instructions {
         amount := instruction.amount

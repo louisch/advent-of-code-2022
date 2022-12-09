@@ -8,7 +8,7 @@ import (
 )
 
 
-func scanElves(day int, part int) []int {
+func scanElves(day int) []int {
     var elves = make([]int, 0)
     currentSum := 0
 
@@ -21,20 +21,20 @@ func scanElves(day int, part int) []int {
 
         currentSum += util.ParseIntSimple(line)
     }
-    util.ScanFileByLine(day, part, visitElves)
+    util.ScanFileByLine(day, visitElves)
 
     sort.Ints(elves)
     return elves
 }
 
 func Part1(day int, part int) {
-    elves := scanElves(day, part)
+    elves := scanElves(day)
     highestCalories := elves[0]
     fmt.Printf("highest calories: %v\n", highestCalories)
 }
 
 func Part2(day int, part int) {
-    elves := scanElves(day, part)
+    elves := scanElves(day)
     sum := 0
     toSum := 3
     for i, calories := range elves[len(elves) - toSum:] {

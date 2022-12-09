@@ -35,7 +35,7 @@ func findUniqueCharsNLength(dataStream string, n int) (int, string) {
 }
 
 func Part1(day int, part int) {
-    dataStream := util.ReadFile(day, part)
+    dataStream := util.ReadFile(day)
     i, unique4 := findUniqueCharsNLength(dataStream, 4)
     if i >= 0 {
         fmt.Printf("4 unique characters found at %vth position: %v\n", i + 1, unique4)
@@ -45,7 +45,7 @@ func Part1(day int, part int) {
 }
 
 func Part2(day int, part int) {
-    dataStream := util.ReadFile(day, part)
+    dataStream := util.ReadFile(day)
     i, unique14 := findUniqueCharsNLength(dataStream, 14)
     if i >= 0 {
         fmt.Printf("14 unique characters found at %vth position: %v\n", i + 1, unique14)

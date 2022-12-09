@@ -6,15 +6,15 @@ import (
     "os"
 )
 
-func ReadFile(day int, part int) string {
-    filename := fmt.Sprintf("data/%v/%v", day, part)
+func ReadFile(day int) string {
+    filename := fmt.Sprintf("data/%v", day)
     data, err := os.ReadFile(filename)
     Check(err)
     return string(data)
 }
 
-func ScanFileByLine(day int, part int, visit func(string)) {
-    filename := fmt.Sprintf("data/%v/%v", day, part)
+func ScanFileByLine(day int, visit func(string)) {
+    filename := fmt.Sprintf("data/%v", day)
     f, err := os.Open(filename)
     Check(err)
     defer f.Close()
