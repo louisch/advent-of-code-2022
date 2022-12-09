@@ -3,7 +3,6 @@ package day1
 import (
     "fmt"
     "sort"
-    "strconv"
 
     "github.com/louisch/advent-of-code-2022/util"
 )
@@ -20,10 +19,7 @@ func scanElves(day int, part int) []int {
             return
         }
 
-        calories64, err := strconv.ParseInt(line, 0, 32)
-        util.Check(err)
-        calories := int(calories64)
-        currentSum += calories
+        currentSum += util.ParseIntSimple(line)
     }
     util.ScanFileByLine(day, part, visitElves)
 
