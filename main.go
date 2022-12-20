@@ -14,6 +14,7 @@ import (
     "github.com/louisch/advent-of-code-2022/day7"
     "github.com/louisch/advent-of-code-2022/day8"
     "github.com/louisch/advent-of-code-2022/day9"
+    "github.com/louisch/advent-of-code-2022/day10"
 )
 
 var challenges = map[string]func(int, int){
@@ -35,6 +36,8 @@ var challenges = map[string]func(int, int){
     "8:2": day8.Part2,
     "9:1": day9.Part1,
     "9:2": day9.Part2,
+    "10:1": day10.Part1,
+    "10:2": day10.Part2,
 }
 
 func main() {
