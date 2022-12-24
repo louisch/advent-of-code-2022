@@ -8,12 +8,7 @@ import (
     "github.com/louisch/advent-of-code-2022/util"
 )
 
-type Coords struct {
-    x int
-    y int
-}
-
-type RockMap = map[Coords]bool
+type RockMap = map[util.Coords]bool
 
 func readMap(day int) (RockMap, int) {
     rockMap := make(RockMap)
@@ -21,7 +16,7 @@ func readMap(day int) (RockMap, int) {
     visitLine := func (line string) {
         lineSplit := strings.Split(line, " -> ")
 
-        var lastWall *Coords = nil
+        var lastWall *util.Coords = nil
 
         for _, coordsSpec := range lineSplit {
             xStr, yStr, ok := strings.Cut(coordsSpec, ",")
@@ -29,30 +24,31 @@ func readMap(day int) (RockMap, int) {
                 log.Fatal(fmt.Sprintf("Line '%v' split = '%v', could not find comma!", line, coordsSpec))
                 return
             }
-            x := util.ParseIntSimple(xStr)
-            y := util.ParseIntSimple(yStr)
-            if y > largestY {
-                largestY = y
+            coords := util.Coords {
+                X: util.ParseIntSimple(xStr),
+                Y: util.ParseIntSimple(yStr),
             }
-            coords := Coords { x, y }
-            if lastWall != nil && lastWall.x == x {
-                startY, endY := lastWall.y, y
-                if y < lastWall.y {
-                    startY, endY = y, lastWall.y
+            if coords.Y > largestY {
+                largestY = coords.Y
+            }
+            if lastWall != nil && lastWall.X == coords.X {
+                startY, endY := lastWall.Y, coords.Y
+                if coords.Y < lastWall.Y {
+                    startY, endY = coords.Y, lastWall.Y
                 }
-                for y := startY; y <= endY; y++ {
-                    rockMap[Coords { x, y }] = true
+                for Y := startY; Y <= endY; Y++ {
+                    rockMap[coords] = true
                 }
-            } else if lastWall != nil && lastWall.y == y {
-                startX, endX := lastWall.x, x
-                if x < lastWall.x {
-                    startX, endX = x, lastWall.x
+            } else if lastWall != nil && lastWall.Y == coords.Y {
+                startX, endX := lastWall.X, coords.X
+                if coords.X < lastWall.X {
+                    startX, endX = coords.X, lastWall.X
                 }
                 for x := startX; x <= endX; x++ {
-                    rockMap[Coords { x, y }] = true
+                    rockMap[util.Coords { X: x, Y: coords.Y }] = true
                 }
             } else if lastWall != nil {
-                log.Fatal(fmt.Sprintf("Last wall (%v,%v) is diagonal from (%v,%v) on line '%v'!", lastWall.x, lastWall.y, x, y, line))
+                log.Fatal(fmt.Sprintf("Last wall %v is diagonal from %v on line '%v'!", lastWall.Fmt(), coords.Fmt(), line))
                 return
             }
             lastWall = &coords
@@ -62,16 +58,16 @@ func readMap(day int) (RockMap, int) {
     return rockMap, largestY
 }
 
-func nextPosForSand(sandPos Coords, rockMap RockMap) *Coords {
-    coordsBelow := Coords { x: sandPos.x, y: sandPos.y + 1 }
+func neXtPosForSand(sandPos util.Coords, rockMap RockMap) *util.Coords {
+    coordsBelow := util.Coords { X: sandPos.X, Y: sandPos.Y + 1 }
     if _, hasRock := rockMap[coordsBelow]; !hasRock {
         return &coordsBelow
     }
-    coordsLeftBelow := Coords { x: sandPos.x - 1, y: sandPos.y + 1 }
+    coordsLeftBelow := util.Coords { X: sandPos.X - 1, Y: sandPos.Y + 1 }
     if _, hasRock := rockMap[coordsLeftBelow]; !hasRock {
         return &coordsLeftBelow
     }
-    coordsRightBelow := Coords { x: sandPos.x + 1, y: sandPos.y + 1 }
+    coordsRightBelow := util.Coords { X: sandPos.X + 1, Y: sandPos.Y + 1 }
     if _, hasRock := rockMap[coordsRightBelow]; !hasRock {
         return &coordsRightBelow
     }
@@ -79,19 +75,19 @@ func nextPosForSand(sandPos Coords, rockMap RockMap) *Coords {
 }
 
 func Part1(day int, part int) {
-    sandSpawn := Coords { x: 500, y: 0 }
+    sandSpawn := util.Coords { X: 500, Y: 0 }
     rockMap, bottomY := readMap(day)
 
     sandPos := sandSpawn
     sandUnits := 0
     for {
-        if sandPos.y > bottomY {
+        if sandPos.Y > bottomY {
             break
         }
 
-        nextSandPos := nextPosForSand(sandPos, rockMap)
-        if nextSandPos == nil {
-            if sandPos.x == sandSpawn.x && sandPos.y == sandSpawn.y {
+        neXtSandPos := neXtPosForSand(sandPos, rockMap)
+        if neXtSandPos == nil {
+            if sandPos.X == sandSpawn.X && sandPos.Y == sandSpawn.Y {
                 log.Fatal("Sand is going to block spawn!")
                 return
             }
@@ -100,14 +96,14 @@ func Part1(day int, part int) {
             sandPos = sandSpawn
             continue
         }
-        sandPos = *nextSandPos
+        sandPos = *neXtSandPos
     }
 
     fmt.Printf("Sand units fallen: %v\n", sandUnits)
 }
 
 func Part2(day int, part int) {
-    sandSpawn := Coords { x: 500, y: 0 }
+    sandSpawn := util.Coords { X: 500, Y: 0 }
     rockMap, bottomY := readMap(day)
     floorY := bottomY + 2
 
@@ -117,14 +113,14 @@ func Part2(day int, part int) {
         if _, spawnBlocked := rockMap[sandSpawn]; spawnBlocked {
             break
         }
-        nextSandPos := nextPosForSand(sandPos, rockMap)
-        if nextSandPos == nil || nextSandPos.y >= floorY {
+        neXtSandPos := neXtPosForSand(sandPos, rockMap)
+        if neXtSandPos == nil || neXtSandPos.Y >= floorY {
             sandUnits++
             rockMap[sandPos] = true
             sandPos = sandSpawn
             continue
         }
-        sandPos = *nextSandPos
+        sandPos = *neXtSandPos
     }
 
     fmt.Printf("Sand units fallen: %v\n", sandUnits)
