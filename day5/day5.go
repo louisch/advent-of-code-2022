@@ -2,7 +2,6 @@ package day5
 
 import (
     "fmt"
-    "regexp"
     "strings"
 
     "github.com/louisch/advent-of-code-2022/util"
@@ -63,8 +62,7 @@ func parseSpec(day int) CrateSpec {
         }
 
         // Parsing instructions from this point onwards
-        regex, err := regexp.Compile(`move (\d+) from (\d+) to (\d+)`)
-        util.Check(err)
+        regex := util.RegexpCompileSimple(`move (\d+) from (\d+) to (\d+)`)
         submatches := regex.FindStringSubmatch(line)
         instructions = append(instructions, CrateInstruction {
             amount: util.ParseIntSimple(submatches[1]),

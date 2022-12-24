@@ -88,25 +88,21 @@ func readMonkeys(day int) ([]Monkey, int) {
                 builder.startingItems = append(builder.startingItems, item)
             }
         case "Operation":
-            regex, err := regexp.Compile(`new = (\S+) (\S) (\S+)`)
-            util.Check(err)
+            regex := util.RegexpCompileSimple(`new = (\S+) (\S) (\S+)`)
             submatches := regex.FindStringSubmatch(rest)
             builder.operation = &[3]string { submatches[1], submatches[2], submatches[3] }
         case "Test":
-            regex, err := regexp.Compile(`divisible by (\d+)`)
-            util.Check(err)
+            regex := util.RegexpCompileSimple(`divisible by (\d+)`)
             submatches := regex.FindStringSubmatch(rest)
             divisor := util.ParseIntSimple(submatches[1])
             builder.divisor = &divisor
         case "If true":
-            regex, err := regexp.Compile(`throw to monkey (\d+)`)
-            util.Check(err)
+            regex := util.RegexpCompileSimple(`throw to monkey (\d+)`)
             submatches := regex.FindStringSubmatch(rest)
             targetMonkey := util.ParseIntSimple(submatches[1])
             builder.test = &[2]int { targetMonkey, 0 }
         case "If false":
-            regex, err := regexp.Compile(`throw to monkey (\d+)`)
-            util.Check(err)
+            regex := util.RegexpCompileSimple(`throw to monkey (\d+)`)
             submatches := regex.FindStringSubmatch(rest)
             targetMonkey := util.ParseIntSimple(submatches[1])
             builder.test[1] = targetMonkey
