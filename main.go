@@ -19,6 +19,17 @@ import (
     "github.com/louisch/advent-of-code-2022/day12"
     "github.com/louisch/advent-of-code-2022/day13"
     "github.com/louisch/advent-of-code-2022/day14"
+    "github.com/louisch/advent-of-code-2022/day15"
+    "github.com/louisch/advent-of-code-2022/day16"
+    "github.com/louisch/advent-of-code-2022/day17"
+    "github.com/louisch/advent-of-code-2022/day18"
+    "github.com/louisch/advent-of-code-2022/day19"
+    "github.com/louisch/advent-of-code-2022/day20"
+    "github.com/louisch/advent-of-code-2022/day21"
+    "github.com/louisch/advent-of-code-2022/day22"
+    "github.com/louisch/advent-of-code-2022/day23"
+    "github.com/louisch/advent-of-code-2022/day24"
+    "github.com/louisch/advent-of-code-2022/day25"
 )
 
 var challenges = map[string]func(int, int){
@@ -50,6 +61,28 @@ var challenges = map[string]func(int, int){
     "13:2": day13.Part2,
     "14:1": day14.Part1,
     "14:2": day14.Part2,
+    "15:1": day15.Part1,
+    "15:2": day15.Part2,
+    "16:1": day16.Part1,
+    "16:2": day16.Part2,
+    "17:1": day17.Part1,
+    "17:2": day17.Part2,
+    "18:1": day18.Part1,
+    "18:2": day18.Part2,
+    "19:1": day19.Part1,
+    "19:2": day19.Part2,
+    "20:1": day20.Part1,
+    "20:2": day20.Part2,
+    "21:1": day21.Part1,
+    "21:2": day21.Part2,
+    "22:1": day22.Part1,
+    "22:2": day22.Part2,
+    "23:1": day23.Part1,
+    "23:2": day23.Part2,
+    "24:1": day24.Part1,
+    "24:2": day24.Part2,
+    "25:1": day25.Part1,
+    "25:2": day25.Part2,
 }
 
 func main() {
